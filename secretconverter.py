@@ -32,12 +32,12 @@ def kla3(sentence: str) -> str:
         encryptedLevelOne += lastHalf + firstHalf + ' '
     for i in encryptedLevelOne:
         number = ord(i) + 1
-        if not chr(number).isspace() and chr(number - 1).isalpha() and 97 < number > 122:
-            number = 97
-        if not chr(number).isspace() and chr(number - 1).isalpha() and 65 < number > 90 and number < 97:
-            number = 65
-        if chr(ord(i)).isspace():
-            letter = ' '
+        if ord('a') < number > ord('z'):
+            number = ord('a')
+        if ord('A') < number > ord('Z') and number < ord('a'):
+            number = ord('A')
+        if not chr(ord(i)).isalpha():
+            letter = chr(ord(i))
         else:
             letter = chr(number)
         encryptedLevelTwo += letter
@@ -55,12 +55,12 @@ def decode_kla3(sentence: str) -> str:
         encryptedLevelOne += lastHalf + firstHalf + ' '
     for i in encryptedLevelOne:
         number = ord(i) - 1
-        if not chr(number).isspace() and number == 96:
-            number = 122
-        if not chr(number).isspace() and number == 64:
-            number = 90
-        if chr(ord(i)).isspace():
-            letter = ' '
+        if number == ord('a') - 1:
+            number = ord('z')
+        if number == ord('A') - 1:
+            number = ord('Z')
+        if not chr(ord(i)).isalpha():
+            letter = chr(ord(i))
         else:
             letter = chr(number)
         encryptedLevelTwo += letter
@@ -68,4 +68,6 @@ def decode_kla3(sentence: str) -> str:
 
 
 if __name__ == "__main__":
-    print(decode_kla3(input("Here: ")))
+    encrypt = input("Here: ")
+    print(kla3(encrypt))
+    print(decode_kla3(kla3(encrypt)))
